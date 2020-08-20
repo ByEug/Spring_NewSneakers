@@ -1,0 +1,30 @@
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Sneakers</title>
+    <link rel="stylesheet" href="/res/style.css">
+</head>
+<body>
+<h1>Sneakers</h1>
+
+<ul>
+    <th:block th:each="pair : ${allSneakers}">
+        <p th:utext="${pair.brand} + ' ' + ${pair.model}"></p>
+        <p th:utext="'Recommended use: ' + ${pair.sport}"></p>
+        <p th:utext="'Amount: ' + ${pair.amount}"></p>
+        <a th:href="@{'/edit/' + ${pair.id}}">edit</a>
+        <a th:href="@{'/delete/' + ${pair.id}}">delete</a>
+    </th:block>
+</ul>
+
+<p class="adder">
+    <br>
+    <a href="/add">Add new pair</a>
+</p>
+
+<form th:action="/logout" method="post">
+    <input type="submit" value="Sign Out"/>
+</form>
+
+</body>
+</html>
