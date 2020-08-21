@@ -6,10 +6,7 @@ import org.example.service.SneakersServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -28,6 +25,17 @@ public class BaseController {
     public String BasePage(Model model) {
         List<Sneakers> allSneakers = sneakersService.allSneakers();
         model.addAttribute("allSneakers", allSneakers);
+        return "BasePage";
+    }
+
+    @PostMapping("")
+    public String Search(@RequestParam("filter") String filter, Model model) {
+        if (filter != null) {
+            model.addAttribute("allSneakers", sneakersService.searchByBrand(filter));
+        }
+        else {
+            model.addAttribute("allSneakers", sneakersService.allSneakers());
+        }
         return "BasePage";
     }
 

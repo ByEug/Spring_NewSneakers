@@ -63,6 +63,19 @@ public class SneakersDAOImpl implements SneakersDAO{
         return session.get(Sneakers.class, id);
     }
 
+    @Override
+    public List<Sneakers> searchByBrand(String brand) {
+        Session session = sessionFactory.getCurrentSession();
+        List<Sneakers> buffer = new ArrayList<>();
+        List<Sneakers> baseList = session.createQuery("from Sneakers").list();
+        for (Sneakers sneakers : baseList) {
+            if (sneakers.getBrand().contains(brand) || sneakers.getModel().contains(brand)) {
+                buffer.add(sneakers);
+            }
+        }
+        return buffer;
+    }
+
 
     /*@Override
     public List<Sneakers> allSneakers() {

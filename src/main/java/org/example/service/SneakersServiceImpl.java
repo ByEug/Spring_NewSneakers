@@ -26,6 +26,12 @@ public class SneakersServiceImpl implements SneakersService{
 
     @Override
     @Transactional
+    public List<Sneakers> searchByBrand(String brand) {
+        return sneakersDAO.searchByBrand(brand);
+    }
+
+    @Override
+    @Transactional
     public void add(Sneakers sneakers) {
         sneakersDAO.add(sneakers);
     }
