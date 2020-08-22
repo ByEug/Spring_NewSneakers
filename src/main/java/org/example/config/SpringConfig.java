@@ -52,7 +52,7 @@ public class SpringConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/WEB-INF/views/**").addResourceLocations("/WEB-INF/views/");
+        registry.addResourceHandler("/res/**").addResourceLocations("/res/");
     }
 
     @Bean

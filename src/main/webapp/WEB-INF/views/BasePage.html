@@ -2,14 +2,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Sneakers</title>
-    <link rel="stylesheet" href="/res/style.css">
+    <link rel="stylesheet" href="res/style.css">
 </head>
 <body>
 <h1>Sneakers</h1>
 
 <form method="POST" class="searchBar">
-    <input class="searchBar" type="text" name="filter">
-    <button class="searchBar" type="submit">Search</button>
+    <input type="text" name="filter">
+    <button type="submit">Search</button>
 </form>
 
 <ul>
@@ -27,9 +27,20 @@
     <a href="/add">Add new pair</a>
 </p>
 
-<form th:action="/logout" method="post">
+<!--form action="/logout" method="post">
     <input type="submit" value="Sign Out"/>
-</form>
+</form-->
+
+<div>
+    <p th:if="${auth} == true"><a href="/login">Log In</a></p>
+    <p th:unless="${auth} == true"><a href="/logout">Log Out</a></p>
+</div>
+
+<!--form th:action="@{/j_spring_security_logout}" method="POST">
+    <div><input type="submit" value="Log Out"/></div>
+</form-->
+
+
 
 </body>
 </html>

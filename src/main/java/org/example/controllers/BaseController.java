@@ -4,6 +4,8 @@ import org.example.models.Sneakers;
 import org.example.service.SneakersService;
 import org.example.service.SneakersServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +26,11 @@ public class BaseController {
     @GetMapping("")
     public String BasePage(Model model) {
         List<Sneakers> allSneakers = sneakersService.allSneakers();
+        boolean auth = SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken;
+        //String auth = SecurityContextHolder.getContext().getAuthentication().getName();
+        System.out.println(auth);
         model.addAttribute("allSneakers", allSneakers);
+        model.addAttribute("auth", auth);
         return "BasePage";
     }
 
@@ -36,6 +42,7 @@ public class BaseController {
         else {
             model.addAttribute("allSneakers", sneakersService.allSneakers());
         }
+
         return "BasePage";
     }
 
