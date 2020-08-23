@@ -5,9 +5,9 @@
     <title>Registration</title>
 </head>
 <body>
-<form th:action="@{/registration}" method="post">
-    <div><label> User Name : <input type="text" name="username"/> </label></div>
-    <div><label> Password: <input type="password" name="password"/> </label></div>
+<form action="/registration" method="POST">
+    <div><label> User Name: <input type="text" id="username" name="username"/> </label></div>
+    <div><label> Password: <input type="password" id="password" name="password"/> </label></div>
     <div><input type="submit" value="Create new account"/></div>
 </form>
 </body>

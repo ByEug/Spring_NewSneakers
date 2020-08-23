@@ -1,7 +1,8 @@
 package org.example.service;
 
+import org.example.dao.UserDAO;
+import org.example.models.Role;
 import org.example.models.User;
-import org.example.models.enums.UserRoleEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,24 +18,19 @@ import java.util.Set;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
-    private UserService userService;
+    private UserDAO userDAO;
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        // с помощью нашего сервиса UserService получаем User
-        User user = userService.getUser("colibri");
-        // указываем роли для этого пользователя
+    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
+
+        User user = userDAO.findByUsername(login);
+
         Set<GrantedAuthority> roles = new HashSet();
-        roles.add(new SimpleGrantedAuthority(UserRoleEnum.USER.name()));
 
-        // на основании полученных данных формируем объект UserDetails
-        // который позволит проверить введенный пользователем логин и пароль
-        // и уже потом аутентифицировать пользователя
-        UserDetails userDetails =
-                new org.springframework.security.core.userdetails.User(user.getLogin(),
-                        user.getPassword(),
-                        roles);
+        for (Role role: user.getRoles()) {
+            roles.add(new SimpleGrantedAuthority(role.getName()));
+        }
 
-        return userDetails;
+        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), roles);
     }
 }

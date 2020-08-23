@@ -28,7 +28,7 @@ public class BaseController {
         List<Sneakers> allSneakers = sneakersService.allSneakers();
         boolean auth = SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken;
         //String auth = SecurityContextHolder.getContext().getAuthentication().getName();
-        System.out.println(auth);
+        //System.out.println(auth);
         model.addAttribute("allSneakers", allSneakers);
         model.addAttribute("auth", auth);
         return "BasePage";

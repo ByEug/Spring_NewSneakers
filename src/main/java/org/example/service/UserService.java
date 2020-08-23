@@ -4,5 +4,9 @@ import org.example.models.User;
 
 public interface UserService {
 
-    User getUser(String login);
+    //User getUser(String login);
+
+    void save(User user);
+
+    User findByUsername(String username);
 }
